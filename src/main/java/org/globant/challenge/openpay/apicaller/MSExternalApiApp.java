@@ -1,4 +1,4 @@
-package org.globant.challenge.openpay;
+package org.globant.challenge.openpay.apicaller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

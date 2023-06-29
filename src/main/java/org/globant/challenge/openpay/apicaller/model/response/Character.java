@@ -1,16 +1,20 @@
-package org.globant.challenge.openpay.apicaller.commons;
+package org.globant.challenge.openpay.apicaller.model.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.util.Date;
 
 /**
  * Represents a Marvel Character
+ * Note it uses a @JsonIgnoreProperties so don't need to have all properties,
+ * All properties that come from response and isn't here will be ignored,
  *
  * @author luis.delcampo
  */
 @Data
-public class MarvelCharacter {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Character {
 
     /**
      * The unique ID of the character resource.

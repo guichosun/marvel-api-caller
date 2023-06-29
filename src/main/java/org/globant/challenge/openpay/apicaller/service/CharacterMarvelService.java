@@ -1,8 +1,9 @@
 package org.globant.challenge.openpay.apicaller.service;
 
-import org.globant.challenge.openpay.apicaller.commons.MarvelCharacter;
+import org.globant.challenge.openpay.apicaller.model.response.Character;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Operation for interact from external Marvel API
@@ -12,19 +13,19 @@ import java.util.List;
 public interface CharacterMarvelService {
 
     /**
-     * Retrieve one {@link MarvelCharacter} by id.
+     * Retrieve one {@link Character} by id.
      *
-     * @param id The id of {@link MarvelCharacter}.
+     * @param id The id of {@link Character}.
      *
-     * @return The unique {@link MarvelCharacter} for the id.
+     * @return The unique {@link Character} for the id.
      */
-    MarvelCharacter getCharacterById(Long id);
+    Optional<Character> getCharacterById(String id);
 
     /**
-     * Retrieve all {@link MarvelCharacter} from external API.
+     * Retrieve all {@link Character} from external API.
      *
-     * @return A List of {@link MarvelCharacter}.
+     * @return A List of {@link Character}.
      */
-    List<MarvelCharacter> getAllCharacter();
+    List<Character> getAllCharacter();
 
 }

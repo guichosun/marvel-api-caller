@@ -2,15 +2,12 @@ package org.globant.challenge.openpay.apicaller.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.globant.challenge.openpay.apicaller.commons.MarvelCharacter;
-import org.globant.challenge.openpay.apicaller.commons.PropertySource;
+import org.globant.challenge.openpay.apicaller.model.response.Character;
+import org.globant.challenge.openpay.apicaller.model.response.CharacterDataContainer;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 /**
  * Implementation using RestTemplate in order to
@@ -24,44 +21,31 @@ import java.util.Map;
 public class CharacterMarvelServiceRestTemplate implements CharacterMarvelService {
 
     /**
-     * RestTemplate to perform http calls.
+     *
      */
-    private RestTemplate clientRest;
+    private DataFacade facade;
 
     /**
-     * The PropertySource.
-     */
-    private final PropertySource propertySource;
-
-    /**
-     * @see CharacterMarvelService#getCharacterById(Long)
+     * @see CharacterMarvelService#getCharacterById(String)
      */
     @Override
-    public MarvelCharacter getCharacterById(Long id) {
-        String url = propertySource.getUrlBase()+propertySource.getApiCharacters();
+    public Optional<Character> getCharacterById(String id) {
 
-        Map<String, String> pathVariables = new HashMap<>();
-        pathVariables.put("id", id.toString());
-
-        // Making the call to marvel api
-        // TODO Manage RestClientException in ControllerAdvice
-
-        return clientRest.getForObject(
-                url+"/{id}", MarvelCharacter.class, pathVariables);
-
+        log.info("stuff for retrieve a Char");
+        // Only return the first element
+        CharacterDataContainer cdc = facade.retrieveCharacterById(id);
+        return Optional.ofNullable(cdc.getResults().get(0));
     }
 
     /**
      * @see CharacterMarvelService#getAllCharacter()
      */
     @Override
-    public List<MarvelCharacter> getAllCharacter() {
+    public List<Character> getAllCharacter() {
+        log.debug("Only necessary stuff for business");
 
-        String url = propertySource.getUrlBase()+propertySource.getApiCharacters();
-
-        // TODO Manage RestClientException in ControllerAdvice
-        return Arrays.asList(
-                clientRest.getForObject(url, MarvelCharacter[].class));
+        // Getting Character list
+        return facade.retrieveAllCharacter().getResults();
 
     }
 }

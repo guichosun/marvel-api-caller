@@ -1,4 +1,4 @@
-package org.globant.challenge.openpay;
+package org.globant.challenge.openpay.apicaller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +14,8 @@ public class AppConfig {
 
 	@Bean("clientRest")
 	public RestTemplate configRestTemplate() {
+
+		// Basic configuration
 		return new RestTemplate();
 	}
 	

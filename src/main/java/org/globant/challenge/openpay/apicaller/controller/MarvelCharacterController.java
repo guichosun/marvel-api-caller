@@ -2,11 +2,14 @@ package org.globant.challenge.openpay.apicaller.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.globant.challenge.openpay.apicaller.commons.MarvelCharacter;
+import org.globant.challenge.openpay.apicaller.model.response.Character;
 import org.globant.challenge.openpay.apicaller.service.CharacterMarvelService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -27,14 +30,16 @@ public class MarvelCharacterController {
     /**
      * API for Retrieve all Marvel Characters.
      *
-     * @return A {@link ResponseEntity} with all {@link MarvelCharacter}
+     * @return A {@link ResponseEntity} with all {@link Character}
      */
     @GetMapping()
-    public ResponseEntity<List<MarvelCharacter>> getCharacters() {
-        log.info("Retrieve all Marvel Characters");
+    public ResponseEntity<List<Character>> getCharacters() {
+        log.debug("Retrieve all Marvel Characters");
 
         // TODO Making call to service
-        List<MarvelCharacter> characters = service.getAllCharacter();
+        List<Character> characters = service.getAllCharacter();
+
+        // Exceptions are maneged br the advice
 
         return ResponseEntity.ok(characters);
     }
@@ -43,15 +48,15 @@ public class MarvelCharacterController {
      * To obtain a character by id.
      *
      * @param id the Character's id
-     * @return A single {@link MarvelCharacter}
+     * @return A single {@link Character}
      */
     @GetMapping("/{id}")
-    public ResponseEntity<MarvelCharacter> getCharacter(@PathVariable String id) {
+    public ResponseEntity<Character> getCharacter(@PathVariable String id) {
         log.info("The character id {}", id);
 
+        // Exceptions are maneged br the advice
         // Get a Character
-        MarvelCharacter character = service.getCharacterById(Long.valueOf(id));
-        return ResponseEntity.ok(character);
+        return ResponseEntity.ok(service.getCharacterById(id).orElseThrow());
     }
 
 }
