@@ -20,20 +20,23 @@ import java.util.List;
 @RequestMapping(value = "${api.base}",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-public class CharacterController {
+public class MarvelCharacterController {
 
     private final CharacterMarvelService service;
 
     /**
-     * Regresar una list con todos los hoteles registrados
+     * API for Retrieve all Marvel Characters.
+     *
+     * @return A {@link ResponseEntity} with all {@link MarvelCharacter}
      */
     @GetMapping()
     public ResponseEntity<List<MarvelCharacter>> getCharacters() {
         log.info("Retrieve all Marvel Characters");
 
         // TODO Making call to service
+        List<MarvelCharacter> characters = service.getAllCharacter();
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(characters);
     }
 
     /**
